@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DR. MATBEN | Official Site | Mylta Studios</title>
+    <meta name="description" content="DR. MATBEN is an intense 2.5D action-platformer shooter roguelite. Dive into dynamic simulations to dismantle a rogue AI before it destroys the world.">
+    <meta name="keywords" content="Dr. Matben, Mylta Studios, indie game, roguelite, 2.5D platformer, action shooter, sci-fi, pixel art, Unreal Engine 5">
+    <meta name="author" content="Mylta Studios">
+
+    <link rel="icon" type="image/png" href="favicon.png"> <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.myltastudios.com/"> 
+    <meta property="og:title" content="DR. MATBEN - A 2.5D Sci-Fi Roguelite">
+    <meta property="og:description" content="Dive into a mad professor's simulated memories to dismantle a rogue AI. Wishlist on Steam now!">
+    <meta property="og:image" content="https://www.myltastudios.com/matben_sideprofile_dark-color_v1.jpg"> 
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.myltastudios.com/">
+    <meta property="twitter:title" content="DR. MATBEN - 2.5D Action Roguelite">
+    <meta property="twitter:description" content="Shoot, platform, and loop your way through simulated memories. Built by Mylta Studios.">
+    <meta property="twitter:image" content="https://www.myltastudios.com/matben_sideprofile_dark-color_v1.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Variables & Theme Setup */
+        :root {
+            --bg-base: #030305;
+            --bg-surface: #0a0b10;
+            --bg-card: #0e1017;
+            --text-primary: #ffffff;
+            --text-secondary: #8bc1cc;
+            --text-muted: #52666d;
+            --accent: #83f0ff;
+            --accent-glow: 0 0 25px rgba(131, 240, 255, 0.45);
+            --accent-glow-intense: 0 0 40px rgba(131, 240, 255, 0.8);
+            --font-header: 'Orbitron', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --grid-color: rgba(131, 240, 255, 0.02);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: #1c2331; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); box-shadow: var(--accent-glow); }
+
+        /* Reset & Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-header);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Dynamic Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            transition: all 0.4s ease;
+            z-index: 1000;
+            border-bottom: 1px solid transparent;
+        }
+
+        header.scrolled {
+            background: rgba(3, 3, 5, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(131, 240, 255, 0.08);
+            padding: 15px 50px; 
+        }
+
+        .logo { font-size: 1.3rem; font-weight: 900; letter-spacing: 3px; }
+        .logo span { color: var(--accent); text-shadow: var(--accent-glow); }
+
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--accent); text-shadow: var(--accent-glow); }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            
+            background-image: 
+                radial-gradient(circle at center, rgba(3, 3, 5, 0.65) 0%, var(--bg-base) 100%),
+                url('matben_sideprofile_dark-color_v1_nologo.webp'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 9vw, 6.5rem);
+            line-height: 0.95;
+            margin-bottom: 20px;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(0,0,0,0.8);
+        }
+        .hero h1 span {
+            color: var(--accent);
+            text-shadow: var(--accent-glow), 0 0 10px rgba(0,0,0,1);
+            animation: textPulse 3s infinite alternate;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: #e0f2f5;
+            max-width: 650px;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+        .button-group { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 35px;
+            background: rgba(3, 3, 5, 0.6);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            font-family: var(--font-header);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(131, 240, 255, 0.05) inset;
+        }
+        .btn:hover {
+            background: rgba(131, 240, 255, 0.15);
+            box-shadow: var(--accent-glow), 0 0 15px rgba(131, 240, 255, 0.1) inset;
+            transform: translateY(-2px);
+        }
+        .btn.primary {
+            background: var(--accent);
+            color: var(--bg-base);
+            box-shadow: var(--accent-glow);
+            border: 1px solid var(--accent);
+        }
+        .btn.primary:hover {
+            background: #ffffff;
+            border-color: #ffffff;
+            color: var(--bg-base);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        }
+
+        /* Scroll Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section Layouts */
+        section { padding: 120px 10%; position: relative; }
+        .section-title { font-size: 2.5rem; margin-bottom: 60px; color: #ffffff; text-align: center; }
+        .section-title span { color: var(--accent); text-shadow: var(--accent-glow); }
+
+        /* The Game */
+        .game-content { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
+        .game-text p { margin-bottom: 25px; font-size: 1.1rem; color: #cbdce0; font-weight: 300; }
+        .game-text .button-group { justify-content: flex-start; margin-top: 35px; }
+        .video-wrapper {
+            position: relative; background: #020203; border: 1px solid rgba(131, 240, 255, 0.2);
+            padding: 6px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: border-color 0.4s ease;
+        }
+        .video-wrapper:hover { border-color: var(--accent); }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* Soundtrack Section */
+        .soundtrack-section {
+            background-color: var(--bg-surface);
+            border-top: 1px solid rgba(131, 240, 255, 0.05);
+        }
+        .audio-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .audio-track {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .audio-track::before { content: ''; position: absolute; top: -1px; left: -1px; width: 8px; height: 8px; border-top: 2px solid rgba(131, 240, 255, 0.3); border-left: 2px solid rgba(131, 240, 255, 0.3); transition: 0.3s ease; }
+        .audio-track:hover { border-color: rgba(131, 240, 255, 0.2); transform: translateX(5px); background: #121520; }
+        .audio-track:hover::before { border-color: var(--accent); }
+        
+        .track-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .track-info h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        .track-info h4 span {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        audio {
+            width: 100%;
+            height: 40px;
+            outline: none;
+            border-radius: 4px;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+        }
+        audio:hover {
+            opacity: 1;
+        }
+
+        /* The Studio */
+        .studio-section {
+            background-color: var(--bg-surface);
+            border-top: 1px solid rgba(131, 240, 255, 0.05);
+            border-bottom: 1px solid rgba(131, 240, 255, 0.05);
+        }
+        .studio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .studio-card { padding: 50px 35px; background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.02); position: relative; transition: all 0.3s ease; }
+        .studio-card::before, .studio-card::after { content: ''; position: absolute; width: 12px; height: 12px; border: 2px solid transparent; transition: all 0.3s ease; }
+        .studio-card::before { top: -1px; left: -1px; border-top-color: rgba(131, 240, 255, 0.2); border-left-color: rgba(131, 240, 255, 0.2); }
+        .studio-card::after { bottom: -1px; right: -1px; border-bottom-color: rgba(131, 240, 255, 0.2); border-right-color: rgba(131, 240, 255, 0.2); }
+        .studio-card:hover { transform: translateY(-5px); background: #121520; }
+        .studio-card:hover::before { border-top-color: var(--accent); border-left-color: var(--accent); }
+        .studio-card:hover::after { border-bottom-color: var(--accent); border-right-color: var(--accent); }
+        .studio-card h3 { font-size: 1.25rem; color: var(--accent); margin-bottom: 20px; }
+        .studio-card p { color: #a4b7bd; font-size: 1rem; font-weight: 300; }
+
+        /* Newsletter (Moved below Studio) */
+        .newsletter-section {
+            background-color: #050608;
+            text-align: center;
+            border-bottom: 1px solid rgba(131, 240, 255, 0.05);
+            padding: 80px 10%;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 30px auto 0;
+            justify-content: center;
+        }
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 15px;
+            background: var(--bg-surface);
+            border: 1px solid rgba(131, 240, 255, 0.1);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            outline: none;
+        }
+        .newsletter-form input:focus { border-color: var(--accent); }
+
+        /* Contact & Press Kit */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .contact-form { display: flex; flex-direction: column; gap: 25px; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 18px; background: var(--bg-surface); border: 1px solid rgba(131, 240, 255, 0.1); color: var(--text-primary); font-family: var(--font-body); font-size: 1rem; outline: none; transition: all 0.3s ease; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(131, 240, 255, 0.15); background: var(--bg-card); }
+        .contact-form textarea { min-height: 180px; resize: vertical; }
+        .contact-form .btn { align-self: center; width: 100%; }
+        
+        .press-kit-box {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(131, 240, 255, 0.05);
+        }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px; background: #020204; color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px; border-top: 1px solid rgba(131, 240, 255, 0.03); font-family: var(--font-header); }
+
+        @keyframes textPulse { 0% { text-shadow: var(--accent-glow), 0 0 10px rgba(0,0,0,1); } 100% { text-shadow: var(--accent-glow-intense), 0 0 15px rgba(0,0,0,1); } }
+
+        /* Mobile */
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; }
+        .menu-toggle span { width: 28px; height: 2px; background-color: var(--text-primary); transition: 0.3s ease; }
+        @media (max-width: 968px) { header { padding: 20px 30px; } header.scrolled { padding: 15px 30px; } .game-content { grid-template-columns: 1fr; gap: 40px; } .game-text .button-group { justify-content: center; } .newsletter-form { flex-direction: column; } }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(5, 6, 10, 0.98); flex-direction: column; text-align: center; padding: 40px 0; border-bottom: 1px solid rgba(131, 240, 255, 0.2); gap: 25px; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
+            .hero { background-attachment: scroll; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="navbar">
+        <div class="logo">MYLTA <span>STUDIOS</span></div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#game">The Game</a>
+            <a href="#soundtrack">Audio</a>
+            <a href="#studio">The Studio</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>DR. <span>MATBEN</span></h1>
+        <p>Survive the simulation. Save the world.</p>
+        <div class="button-group">
+            <a href="#game"><button class="btn">Explore the Simulation</button></a>
+            <a href="https://store.steampowered.com/app/2907670/DR_MATBEN/" target="_blank"><button class="btn primary">Wishlist on Steam</button></a>
+        </div>
+    </section>
+
+    <section id="game" class="reveal">
+        <h2 class="section-title">Dr. Matben vs <span>The AI</span></h2>
+        <div class="game-content">
+            <div class="game-text">
+                <p>When the brilliant (but perhaps careless) Dr. Matben accidentally creates a rogue artificial intelligence intent on destroying the world, there's only one way out.</p>
+                <p>Dive into dynamic simulations of the doctor's own memories to systematically dismantle the AI's network. Every run is unique in this adrenaline-fueled 2.5D action roguelite.</p>
+                <p>Shoot, platform, and loop your way through a stylized sci-fi landscape until the system crashes – or you do.</p>
+                
+                <div class="button-group">
+                    <a href="https://store.steampowered.com/app/2907670/DR_MATBEN/" target="_blank"><button class="btn primary">Wishlist on Steam</button></a>
+                </div>
+            </div>
+            
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/YOUR_YOUTUBE_ID?rel=0" title="DR. MATBEN - Official Reveal Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="soundtrack" class="soundtrack-section reveal">
+        <h2 class="section-title">Original <span>Soundtrack</span></h2>
+        <p style="text-align: center; color: var(--text-secondary); max-width: 600px; margin: 0 auto 40px;">
+            Preview the adrenaline-pumping, heavy sci-fi score. <br>Composed and mixed in-house by Henrik Öberg.
+        </p>
+        
+        <div class="audio-grid">
+            <div class="audio-track">
+                <div class="track-info">
+                    <h4><span>01</span> Portable Power</h4>
+                </div>
+                <audio controls controlsList="nodownload" src="portable_power.mp3"></audio>
+            </div>
+
+            <div class="audio-track">
+                <div class="track-info">
+                    <h4><span>02</span> DR. MATBEN Main Theme</h4>
+                </div>
+                <audio controls controlsList="nodownload" src="matben_maintheme.mp3"></audio>
+            </div>
+            
+            <div class="audio-track">
+                <div class="track-info">
+                    <h4><span>03</span> Bootloop, Office Sentinel</h4>
+                </div>
+                <audio controls controlsList="nodownload" src="bootloop_office_sentinel.mp3"></audio>
+            </div>
+        </div>
+    </section>
+
+    <section id="studio" class="studio-section reveal">
+        <h2 class="section-title">Operational <span>Intel</span></h2>
+        <div class="studio-grid">
+            
+            <div class="studio-card">
+                <h3>Independent Core</h3>
+                <p>Founded in Umeå, Sweden by Henrik and Linus. We build the games we want to play, without compromise.</p>
+            </div>
+            
+            <div class="studio-card">
+                <h3>100% Human Art</h3>
+                <p>Every frame of pixel art is meticulously hand-drawn by our lead artist, Linus. Zero AI generation used, just pure artistic intent and bespoke sci-fi design.</p>
+            </div>
+            
+            <div class="studio-card">
+                <h3>Rigorously Optimized</h3>
+                <p>We push the visual boundaries of what a 2.5D roguelite can look like, but fluid gameplay is king. DR. MATBEN is heavily optimized to deliver striking, atmospheric graphics without sacrificing framerates.</p>
+            </div>
+
+            <div class="studio-card">
+                <h3>Kick-Ass Audio</h3>
+                <p>Featuring an awesome, high-energy original soundtrack composed and meticulously mixed in-house by Henrik Öberg. Every run is fueled by an adrenaline-pumping sci-fi score designed to keep your heart racing.</p>
+            </div>
+
+            <div class="studio-card">
+                <h3>Endless Replayability</h3>
+                <p>Every dive into Dr. Matben's simulated memories is completely unique. Dynamic layouts, randomized upgrades, and unpredictable AI behaviors mean no two runs are ever exactly the same.</p>
+            </div>
+
+            <div class="studio-card">
+                <h3>Lovable Cast</h3>
+                <p>Despite the high sci-fi stakes, the world is full of heart. Encounter a quirky, personal cast of memorable characters who will aid, mock, and guide you through the madness.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="newsletter-section reveal">
+        <h2 style="font-family: var(--font-header); letter-spacing: 2px;">JOIN THE <span>NETWORK</span></h2>
+        <p style="color: var(--text-secondary); margin-top: 10px;">Get notified the second our demo drops. No spam.</p>
+        <form class="newsletter-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Newsletter connected!');">
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="btn primary">Subscribe</button>
+        </form>
+    </section>
+
+    <section id="contact" class="reveal">
+        <h2 class="section-title">Initiate <span>Contact</span></h2>
+        <div class="contact-container">
+            <form class="contact-form" action="https://formspree.io/f/xqejyowo" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message (Press inquiries, collaborations, etc.)" required></textarea>
+                <button type="submit" class="btn">Transmit Data</button>
+            </form>
+            
+            <div class="press-kit-box">
+                <h3 style="margin-bottom: 15px; font-size: 1.1rem; color: var(--text-secondary);">Content Creator or Press?</h3>
+                <a href="#"><button class="btn">Download Press Kit</button></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 MYLTA STUDIOS. ALL RIGHTS RESERVED.
+    </footer>
+
+    <script>
+        // Mobilmeny
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+
+        // Sticky Header 
+        const header = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Animations 
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.15 
+        });
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+    </script>
+</body>
+</html>
+
+```
