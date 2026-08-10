@@ -32,6 +32,101 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap"
         rel="stylesheet">
+        
+    <style>
+        .carousel-wrapper {
+            max-width: 900px;
+            margin: 0 auto 40px auto;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            background: #111;
+        }
+
+        .carousel-track-container {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+            width: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/9;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: 2px solid transparent;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            border-color: #fff;
+        }
+
+        .carousel-btn.prev {
+            left: 15px;
+        }
+
+        .carousel-btn.next {
+            right: 15px;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+            background: rgba(0,0,0,0.4);
+            padding: 8px 12px;
+            border-radius: 20px;
+        }
+
+        .carousel-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-indicator.current-slide {
+            background: #fff;
+            transform: scale(1.2);
+        }
+    </style>
 </head>
 
 <body>
@@ -46,9 +141,9 @@
         <nav class="nav-links">
             <a href="#home">Home</a>
             <a href="#game">Overview</a>
+            <a href="#gallery">Screenshots</a>
             <a href="#soundtrack">Music</a>
-            <a href="#studio">The Game</a>
-            <!-- TEMP REMOVED <a href="#contact">Contact</a> -->
+            <a href="#studio">About</a>
         </nav>
     </header>
 
@@ -85,6 +180,34 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="reveal" style="padding-top: 60px;">
+        <h2 class="section-title">Screenshots</h2>
+        
+        <div class="carousel-wrapper">
+            <button class="carousel-btn prev">&#10094;</button>
+            <div class="carousel-track-container">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="/assets/screenshots/1.jpg" alt="DR. MATBEN Screenshot">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/screenshots/2.jpg" alt="DR. MATBEN Screenshot">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/screenshots/3.jpg" alt="DR. MATBEN Screenshot">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/screenshots/4.jpg" alt="DR. MATBEN Screenshot">
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-btn next">&#10095;</button>
+            
+            <div class="carousel-nav">
             </div>
         </div>
     </section>
@@ -169,8 +292,6 @@
         </div>
     </section>
 
-    <!-- Temp removal -->
-    <!--
     <section class="newsletter-section reveal">
         <h2 style="font-family: var(--font-header); letter-spacing: 2px;">JOIN THE <span>NETWORK</span></h2>
         <p style="color: var(--text-secondary); margin-top: 10px;">Get an email when the demo goes live.</p>
@@ -198,7 +319,7 @@
     </section>
 -->
     <footer>
-        &copy; 2026 MYLTA STUDIOS. ALL RIGHTS RESERVED.
+        &copy; 2026 MYLTA STUDIOS AB. ALL RIGHTS RESERVED.
     </footer>
 
     <script>
@@ -212,7 +333,6 @@
             });
         });
 
-        // Sticky Header 
         const header = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -222,7 +342,6 @@
             }
         });
 
-        // Scroll Animations 
         const revealElements = document.querySelectorAll('.reveal');
 
         const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -239,6 +358,44 @@
 
         revealElements.forEach(element => {
             revealObserver.observe(element);
+        });
+
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.carousel-btn.next');
+        const prevButton = document.querySelector('.carousel-btn.prev');
+        const dotsNav = document.querySelector('.carousel-nav');
+        
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('carousel-indicator');
+            if(index === 0) dot.classList.add('current-slide');
+            dot.addEventListener('click', () => moveToSlide(index));
+            dotsNav.appendChild(dot);
+        });
+        
+        const dots = Array.from(dotsNav.children);
+        let currentIndex = 0;
+
+        function updateDots(index) {
+            dots.forEach(dot => dot.classList.remove('current-slide'));
+            dots[index].classList.add('current-slide');
+        }
+
+        function moveToSlide(index) {
+            track.style.transform = 'translateX(-' + (index * 100) + '%)';
+            updateDots(index);
+            currentIndex = index;
+        }
+
+        nextButton.addEventListener('click', () => {
+            let nextIndex = (currentIndex + 1) % slides.length;
+            moveToSlide(nextIndex);
+        });
+
+        prevButton.addEventListener('click', () => {
+            let prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+            moveToSlide(prevIndex);
         });
     </script>
 </body>
