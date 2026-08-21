@@ -35,6 +35,18 @@
             font-style: normal;
         }
 
+        .name-container {
+            display: flex;
+            justify-content: space-around; /* Spaces the names evenly under each portrait */
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .imglegend {
+            margin: 0;
+            text-align: center;
+        }
+
         :root {
             --game-font: 'DrMatbenFont', monospace;
         }
@@ -319,7 +331,9 @@
                 <h3>Independent Studio</h3>
                 <p>MYLTA Studios is a two-man indie team based in northern Sweden, founded by Henrik and Supis. We make the games we want to play ourselves!</p>
                 <img class="portraits" src="/assets/porträtt.png" alt="Supis (L) and Henrik (R)" onmouseover="this.src='/assets/porträtt-hover.png';" onmouseout="this.src='/assets/porträtt.png';">
-                <div>
+                
+                <!-- Add the class here -->
+                <div class="name-container">
                     <div id="namnspalt-L">
                         <p class="imglegend">Supis</p>
                     </div>
