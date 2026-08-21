@@ -27,13 +27,43 @@
         content="Shoot, platform, and mod your way through simulated memories. Built by MYLTA Studios.">
     <meta property="twitter:image" content="https://www.myltastudios.com/matben_sideprofile_dark-color_v1.jpg">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap"
-        rel="stylesheet">
-        
     <style>
+        @font-face {
+            font-family: 'DrMatbenFont';
+            src: url('assets/static_break_copyrighted.otf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --game-font: 'DrMatbenFont', monospace;
+        }
+
+        body, h1, h2, h3, h4, h5, h6, p, .logo, .nav-links a, .btn, .section-title, .track-info h4, .hero-description, .game-text, .studio-card, .contact-container h3 {
+            font-family: var(--game-font) !important;
+        }
+
+        body {
+            font-size: 1.2rem !important; 
+        }
+
+        .btn {
+            font-size: 1rem !important; 
+            padding: 14px 22px !important;
+            text-transform: uppercase;
+        }
+        
+        .nav-links a {
+            font-size: 1.2rem !important;
+            text-transform: uppercase;
+        }
+        
+        .nav-logo-img {
+            max-height: 40px;
+            width: auto;
+            display: block;
+        }
+
         .carousel-wrapper {
             max-width: 900px;
             margin: 0 auto 40px auto;
@@ -126,13 +156,25 @@
             background: #fff;
             transform: scale(1.2);
         }
+
+        .hero-logo-img {
+            max-width: 100%;
+            width: 600px;
+            height: auto;
+            display: block;
+            margin: 0 auto 15px auto;
+        }
     </style>
 </head>
 
 <body>
 
     <header id="navbar">
-        <div class="logo">MYLTA <span>STUDIOS</span></div>
+        <div class="logo">
+            <a href="#home">
+                <img src="assets/mylta-logo_WonB-wm_v1_crop.png" alt="MYLTA Studios" class="nav-logo-img">
+            </a>
+        </div>
         <div class="menu-toggle" onclick="toggleMenu()">
             <span></span>
             <span></span>
@@ -148,7 +190,9 @@
     </header>
 
     <section id="home" class="hero">
-        <h1>DR. <span>MATBEN</span></h1>
+        <h1>
+            <img src="assets/matben-logotext-1rad-W_v1.png" alt="DR. MATBEN" class="hero-logo-img">
+        </h1>
         <p class="hero-description">An action-platformer roguelite about mods, memories, and a rogue AI.</p>
         <div class="button-group">
             <a href="#game"><button class="btn">Enter the Simulation</button></a>
@@ -290,31 +334,10 @@
                 <p>All art in DR. MATBEN is drawn by hand. No AI-generated assets are used in the game.</p>
             </div>
 
-            <!--
-            <div class="studio-card">
-                <h3>Built For Performance</h3>
-                <p>DR. MATBEN is highly optimized to keep combat fast and fluid without sacrificing fidelity, even on handheld systems.</p>
-            </div>
-        -->
-
             <div class="studio-card">
                 <h3>Original Soundtrack</h3>
                 <p>The retro 80s-inspired original soundtrack is composed and produced in-house by Henrik.</p>
             </div>
-
-            <!--
-            <div class="studio-card">
-                <h3>Endless Replayability</h3>
-                <p>Rooms, loot, and encounters change between runs, forcing you to adapt as the simulation changes.
-                </p>
-            </div>
-
-            <div class="studio-card">
-                <h3>Strange Characters</h3>
-                <p>The world of DR. MATBEN is filled with unusual personalities. Some helpful, some hostile, and some
-                    impossible to fully trust.</p>
-            </div>
-        -->
 
         </div>
     </section>
