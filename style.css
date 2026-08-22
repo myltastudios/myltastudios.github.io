@@ -443,6 +443,16 @@ audio:hover {
     margin: auto;
     margin-top: 20px;
     cursor: crosshair;
+    image-rendering: pixelated;
+}
+
+.card-img {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    cursor: crosshair;
+    image-rendering: pixelated;
 }
 
 #namnspalt-L {
