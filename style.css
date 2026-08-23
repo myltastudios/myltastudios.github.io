@@ -451,7 +451,6 @@ audio:hover {
     display: block;
     margin: auto;
     margin-top: 20px;
-    cursor: crosshair;
     image-rendering: pixelated;
 }
 
@@ -613,7 +612,7 @@ footer {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 916px) {
     .nav-links {
         display: none;
         position: absolute;
